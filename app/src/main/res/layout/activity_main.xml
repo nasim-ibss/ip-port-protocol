@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:baselineAligned="false"
+        tools:ignore="UselessParent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/ip_address"
+                android:padding="10dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ip_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:digits="0123456789."
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/port"
+                android:padding="10dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/port"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2">
+
+
+            <Spinner
+                android:id="@+id/protocol_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:padding="15dp"
+                android:background="@drawable/background"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp">
+
+        <TextView
+            android:id="@+id/ip_address_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ip_address_c"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:padding="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ip_address_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ip_address"
+            android:padding="10dp"
+            android:textSize="18sp"
+            android:layout_toRightOf="@+id/ip_address_label"
+            android:layout_toEndOf="@+id/ip_address_label" />
+
+        <TextView
+            android:id="@+id/port_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/port_number_c"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:padding="10dp"
+            android:layout_below="@+id/ip_address_label"/>
+
+        <TextView
+            android:id="@+id/port_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/port_number"
+            android:padding="10dp"
+            android:textSize="18sp"
+            android:layout_below="@+id/ip_address_label"
+            android:layout_toRightOf="@+id/port_label"
+            android:layout_toEndOf="@+id/port_label" />
+
+        <TextView
+            android:id="@+id/protocol_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/protocol_c"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:padding="10dp"
+            android:layout_below="@+id/port_label"/>
+
+        <TextView
+            android:id="@+id/protocol_field_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/protocol"
+            android:padding="10dp"
+            android:textSize="18sp"
+            android:layout_below="@+id/port_label"
+            android:layout_toRightOf="@+id/protocol_label"
+            android:layout_toEndOf="@+id/protocol_label" />
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Assignment</string>
+    <string name="ip_address">IP Address</string>
+    <string name="port">Port</string>
+    <string name="protocol">Protocol</string>
+    <string name="ip_address_c">IP Address:</string>
+    <string name="port_number_c">Port Number:</string>
+    <string name="port_number">Port Number</string>
+    <string name="protocol_c">Protocol:</string>
+
+    <string-array name="protocol_type">
+        <item>Protocol</item>
+        <item>FTP</item>
+        <item>SMTP</item>
+        <item>HTTP</item>
+        <item>HTTPS</item>
+    </string-array>
+
+</resources>
