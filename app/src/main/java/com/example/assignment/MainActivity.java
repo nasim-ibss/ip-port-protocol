@@ -2,11 +2,13 @@ package com.example.assignment;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         protocolAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         protocolSpinnerText.setAdapter(protocolAdapter);
 
+        // On Item Selected Listener for Protocol
         protocolSpinnerText.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -66,18 +69,31 @@ public class MainActivity extends AppCompatActivity {
                 protocolFieldText.setText("");
             }
         });
+        protocolSpinnerText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            }
+        });
+
 
 
         // IP Address on Edit
+        ipAddress.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus && !ipAddress.getText().toString().equals(""))
+                    setUpData("ipaddress", ipAddress.getText().toString());
+            }
+        });
         ipAddress.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 
-                if(actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE || event != null && event.getAction() == KeyEvent.ACTION_DOWN || event.getAction() == KeyEvent.KEYCODE_ENTER){
-                    if(event == null || !event.isShiftPressed()){
-                        setUpData("ipaddress", ipAddress.getText().toString());
-                        return true;
-                    }
+                if(actionId == EditorInfo.IME_ACTION_NEXT){
+                    portNumber.requestFocus();
+                    return true;
                 }
 
                 return false;
@@ -86,31 +102,38 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Port Number On Edit
+        portNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus && !portNumber.getText().toString().equals(""))
+                    setUpData("portnumber", portNumber.getText().toString());
+            }
+        });
         portNumber.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE || event != null && event.getAction() == KeyEvent.ACTION_DOWN || event.getAction() == KeyEvent.KEYCODE_ENTER){
-                    if(event == null || !event.isShiftPressed()){
-                        setUpData("portnumber", portNumber.getText().toString());
-                        return true;
-                    }
+                if(actionId == EditorInfo.IME_ACTION_DONE){
+                    protocolSpinnerText.requestFocus();
+                    return true;
                 }
 
                 return false;
             }
         });
-
     }
 
+    // Setup Data for TextView
     public void setUpData(String fieldType, String data){
-        if(fieldType == "ipaddress"){
-            ipAddressText.setText(data);
-            portNumber.setFocusable(true);
-        }else if(fieldType == "portnumber"){
-            portNumberText.setText(data);
-            protocolSpinnerText.setFocusable(true);
-        }else if(fieldType == "protocol"){
-            protocolFieldText.setText(data);
+        switch (fieldType) {
+            case "ipaddress":
+                ipAddressText.setText(data);
+                break;
+            case "portnumber":
+                portNumberText.setText(data);
+                break;
+            case "protocol":
+                protocolFieldText.setText(data);
+                break;
         }
     }
 
