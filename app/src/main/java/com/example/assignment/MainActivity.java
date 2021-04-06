@@ -2,7 +2,9 @@ package com.example.assignment;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -30,13 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private TextInputEditText portNumber;
     private TextView ipAddressText;
     private TextView portNumberText;
-
     private Spinner protocolSpinnerText;
-
     private TextView protocolFieldText;
-
-    private String[] protocolCategory;
-    private String selectedProtocol;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Set Protocol Data on Dropdown
-        protocolCategory = getResources().getStringArray(R.array.protocol_type);
+        String[] protocolCategory = getResources().getStringArray(R.array.protocol_type);
         ArrayAdapter<String> protocolAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, protocolCategory);
         protocolAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         protocolSpinnerText.setAdapter(protocolAdapter);
@@ -80,16 +77,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
         // IP Address on Edit
         ipAddress.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus && !ipAddress.getText().toString().equals(""))
-                    setUpData("ipaddress", ipAddress.getText().toString());
+                    setUpData("ip_address", ipAddress.getText().toString());
             }
         });
-
         ipAddress.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -98,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                setUpData("ipaddress", s.toString());
+                setUpData("ip_address", s.toString());
             }
 
             @Override
@@ -106,8 +101,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
         ipAddress.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -127,10 +120,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus && !portNumber.getText().toString().equals(""))
-                    setUpData("portnumber", portNumber.getText().toString());
+                    setUpData("port_number", portNumber.getText().toString());
             }
         });
-
         portNumber.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -139,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                setUpData("portnumber", s.toString());
+                setUpData("port_number", s.toString());
             }
 
             @Override
@@ -147,8 +139,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
         portNumber.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @SuppressLint("UseCompatLoadingForDrawables")
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if(actionId == EditorInfo.IME_ACTION_DONE){
@@ -164,10 +156,10 @@ public class MainActivity extends AppCompatActivity {
     // Setup Data for TextView
     public void setUpData(String fieldType, String data){
         switch (fieldType) {
-            case "ipaddress":
+            case "ip_address":
                 ipAddressText.setText(data);
                 break;
-            case "portnumber":
+            case "port_number":
                 portNumberText.setText(data);
                 break;
             case "protocol":
